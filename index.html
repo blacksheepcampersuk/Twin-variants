@@ -12,5 +12,28 @@
     <model-viewer src="Twin Bench.glb" ar ar-modes="webxr scene-viewer quick-look" camera-controls tone-mapping="neutral" poster="poster.webp" shadow-intensity="1" shadow-softness="1" exposure="1" background colour="transparent"> </model-viewer>
     <!-- Loads <model-viewer> for browsers: -->
     <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/4.3.1/model-viewer.min.js"></script>
+
+    <!-- Interactive Color Buttons -->
+  <div class="controls">
+    <!-- Replace data-variant values with the EXACT names you typed into the editor -->
+    <button class="variant-btn" data-variant="Red_Edition">Red Version</button>
+    <button class="variant-btn" data-variant="Blue_Edition">Blue Version</button>
+    <button class="variant-btn" data-variant="Green_Edition">Green Version</button>
+  </div>
+
+  <script>
+    const modelViewer = document.querySelector("#variant-demo");
+    const buttons = document.querySelectorAll(".variant-btn");
+
+    buttons.forEach(button => {
+      button.addEventListener("click", (event) => {
+        // Read the variant name from the clicked button
+        const selectedVariant = event.target.getAttribute("data-variant");
+        
+        // Tell model-viewer to instantly switch to that variant material profile
+        modelViewer.variantName = selectedVariant;
+      });
+    });
+  </script>
   </body>
 </html>
