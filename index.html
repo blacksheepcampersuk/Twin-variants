@@ -17,21 +17,27 @@
   <div class="controls">
     <!-- These match your exact casing: Green, blue, black, cream -->
     <button class="color-btn" data-variant="Green">Green</button>
-    <button class="color-btn" data-variant="blue">Blue</button>
-    <button class="color-btn" data-variant="black">Black</button>
-    <button class="color-btn" data-variant="cream">Cream</button>
+    <button class="color-btn" data-variant="Blue">Blue</button>
+    <button class="color-btn" data-variant="Black">Black</button>
+    <button class="color-btn" data-variant="Cream">Cream</button>
   </div>
 
-  <script>
-    const modelViewer = document.querySelector("#product-viewer");
-    const buttons = document.querySelectorAll(".color-btn");
+<script>
+  const modelViewer = document.querySelector("#product-viewer");
+  const buttons = document.querySelectorAll(".color-btn");
+
+  // Wait until the 3D model is completely downloaded and ready in the browser
+  modelViewer.addEventListener("load", () => {
+    
+    // Log the actual variant names embedded inside the GLB file to your browser console
+    console.log("Available variants in this GLB:", modelViewer.availableVariants);
 
     buttons.forEach(button => {
-      button.addEventListener("click", (e) => {
-        // Pull the exact variant name from the data attribute
+      button.addEventListener("click", async (e) => {
         const targetVariant = e.target.getAttribute("data-variant");
         
-        // Instruct the model viewer to switch instantly
+        // Use a clean asynchronous microtask promise to force model-viewer to repaint
+        await Promise.resolve();
         modelViewer.variantName = targetVariant;
       });
     });
