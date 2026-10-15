@@ -22,25 +22,31 @@
     <button class="color-btn" data-variant="Cream">Cream</button>
   </div>
 
-<script>
-  const modelViewer = document.querySelector("#product-viewer");
-  const buttons = document.querySelectorAll(".color-btn");
+  <script>
+    // 1. Grab our viewer and button elements from the HTML page
+    const modelViewer = document.querySelector("#product-viewer");
+    const buttons = document.querySelectorAll(".color-btn");
 
-  // Wait until the 3D model is completely downloaded and ready in the browser
-  modelViewer.addEventListener("load", () => {
-    
-    // Log the actual variant names embedded inside the GLB file to your browser console
-    console.log("Available variants in this GLB:", modelViewer.availableVariants);
+    // 2. Wait until the 3D model finishes downloading completely
+    modelViewer.addEventListener("load", () => {
+      
+      // Look inside your browser console (F12) to see if names match your buttons!
+      console.log("Available variants found in GLB:", modelViewer.availableVariants);
 
-    buttons.forEach(button => {
-      button.addEventListener("click", async (e) => {
-        const targetVariant = e.target.getAttribute("data-variant");
-        
-        // Use a clean asynchronous microtask promise to force model-viewer to repaint
-        await Promise.resolve();
-        modelViewer.variantName = targetVariant;
-      });
-    });
+      // 3. Loop through every button and listen for a click
+      buttons.forEach(button => {
+        button.addEventListener("click", () => {
+          
+          // Get the target color name from the clicked button
+          const targetVariant = button.getAttribute("data-variant");
+          
+          // Swap the variant color layout instantly
+          modelViewer.variantName = targetVariant;
+          
+        }); // Closes addEventListener click
+      }); // Closes forEach loop
+
+    }); // Closes addEventListener load
   </script>
   </body>
 </html>
