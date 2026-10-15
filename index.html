@@ -68,30 +68,43 @@
   </div>
 
   <script>
-    // 1. Grab our viewer and button elements from the HTML page
-    const modelViewer = document.querySelector("#product-viewer");
-    const buttons = document.querySelectorAll(".color-btn");
+document.addEventListener('DOMContentLoaded', () => {
+  const modelViewer = document.querySelector('#product-viewer');
+  const buttons = Array.from(document.querySelectorAll('.color-btn'));
 
-    // 2. Wait until the 3D model finishes downloading completely
-    modelViewer.addEventListener("load", () => {
-      
-      // Look inside your browser console (F12) to see if names match your buttons!
-      console.log("Available variants found in GLB:", modelViewer.availableVariants);
+  if (!modelViewer) {
+    console.error('No <model-viewer> with id #product-viewer');
+    return;
+  }
 
-      // 3. Loop through every button and listen for a click
-      buttons.forEach(button => {
-        button.addEventListener("click", () => {
-          
-          // Get the target color name from the clicked button
-          const targetVariant = button.getAttribute("data-variant");
-          
-          // Swap the variant color layout instantly
-          modelViewer.variantName = targetVariant;
-          
-        }); // Closes addEventListener click
-      }); // Closes forEach loop
+  function markSelected(matchName) {
+    buttons.forEach(b => b.classList.toggle('selected', b.dataset.variant === matchName));
+  }
 
-    }); // Closes addEventListener load
-  </script>
+  modelViewer.addEventListener('load', () => {
+    const available = modelViewer.availableVariants || [];
+
+    buttons.forEach(button => {
+      const desired = button.dataset.variant || '';
+      const color = button.dataset.color;
+      if (color) button.style.backgroundColor = color;
+
+      const match = available.find(v => v === desired) ||
+                    available.find(v => v.toLowerCase() === desired.toLowerCase());
+
+      button.disabled = !match;
+      button.title = match ? desired : 'Variant not found in model';
+
+      button.addEventListener('click', () => {
+        if (!match) return;
+        modelViewer.variantName = match;
+        markSelected(match);
+      });
+    });
+
+    if (modelViewer.variantName) markSelected(modelViewer.variantName);
+  });
+});
+</script>
   </body>
 </html>
