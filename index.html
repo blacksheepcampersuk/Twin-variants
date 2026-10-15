@@ -24,13 +24,12 @@
  <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/4.3.1/model-viewer.min.js"></script>
 <script>
   const modelViewer = document.querySelector("#product-viewer");
-  const buttons = document.querySelectorAll(".color-btn");
 
   if (!modelViewer) {
     console.error("No <model-viewer> found with id #product-viewer");
   } else {
     // Wait until the 3D model finishes downloading
-    modelViewer.addEventListener("load", () => {
+    modelViewer.addEventListener("load", () => { const buttons = document.querySelectorAll(".color-btn");
       console.log("Available variants found in GLB:", modelViewer.availableVariants);
 
       // enable/disable buttons based on what's actually available
