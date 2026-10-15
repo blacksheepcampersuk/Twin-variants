@@ -13,25 +13,26 @@
     <!-- Loads <model-viewer> for browsers: -->
     <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/4.3.1/model-viewer.min.js"></script>
 
-    <!-- Interactive Color Buttons -->
+    <!-- Color Choice Interface -->
   <div class="controls">
-    <!-- Replace data-variant values with the EXACT names you typed into the editor -->
-    <button class="variant-btn" data-variant="Red_Edition">Red Version</button>
-    <button class="variant-btn" data-variant="Blue_Edition">Blue Version</button>
-    <button class="variant-btn" data-variant="Green_Edition">Green Version</button>
+    <!-- These match your exact casing: Green, blue, black, cream -->
+    <button class="color-btn" data-variant="Green">Green</button>
+    <button class="color-btn" data-variant="blue">Blue</button>
+    <button class="color-btn" data-variant="black">Black</button>
+    <button class="color-btn" data-variant="cream">Cream</button>
   </div>
 
   <script>
-    const modelViewer = document.querySelector("#variant-demo");
-    const buttons = document.querySelectorAll(".variant-btn");
+    const modelViewer = document.querySelector("#product-viewer");
+    const buttons = document.querySelectorAll(".color-btn");
 
     buttons.forEach(button => {
-      button.addEventListener("click", (event) => {
-        // Read the variant name from the clicked button
-        const selectedVariant = event.target.getAttribute("data-variant");
+      button.addEventListener("click", (e) => {
+        // Pull the exact variant name from the data attribute
+        const targetVariant = e.target.getAttribute("data-variant");
         
-        // Tell model-viewer to instantly switch to that variant material profile
-        modelViewer.variantName = selectedVariant;
+        // Instruct the model viewer to switch instantly
+        modelViewer.variantName = targetVariant;
       });
     });
   </script>
