@@ -5,7 +5,35 @@
 html {
   height: 100%;
 }
+.color-btn {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: 1px solid rgba(0,0,0,0.15);
+  margin: 6px;
+  padding: 0;
+  cursor: pointer;
+  background-size: cover;
+  background-position: center;
+  display: inline-block;
+  vertical-align: middle;
+  /* hide any text but keep it accessible */
+  color: transparent;
+  text-indent: 100%;
+  white-space: nowrap;
+  overflow: hidden;
+}
 
+.color-btn[disabled] {
+  opacity: 0.35;
+  cursor: not-allowed;
+  filter: grayscale(50%);
+}
+
+.color-btn.selected {
+  outline: 3px solid #000; /* visible selected ring — adjust for contrast */
+  outline-offset: 2px;
+}
 body {
   margin: 0;
   padding: 0;
